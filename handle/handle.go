@@ -8,10 +8,11 @@ import (
 	"os"
 )
 
-// HandleQuery 处理query
+// HandleQuery 处理query  /api
 func HandleQuery(c *gin.Context) {
 	name := c.Query("username") //http://localhost:8000/?name=lgp   //获取get请求的查询参数
-	c.String(http.StatusOK, `<div style="color:red"">欢迎%v的驾到</div>`, name)
+	password := c.DefaultQuery("password", "123456")
+	c.String(http.StatusOK, `<div style="color:red"">欢迎%v的驾到</div><div>密码%v</div>`, name, password)
 }
 
 // HandleParam 处理param
@@ -28,7 +29,8 @@ func HandleForm(c *gin.Context) {
 	}
 	username := c.PostForm("username")
 	password := c.PostForm("password")
-	c.String(200, "username:%v,password:%v", username, password)
+	user := c.DefaultPostForm("user", "lgp")
+	c.String(200, "username:%v,password:%v,user:%v", username, password, user)
 }
 
 // HandlePage 处理文件请求
