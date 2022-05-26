@@ -45,5 +45,6 @@ func Serve() *gin.Engine {
 	app.GET("/:name", deal.HandleParam)
 	app.POST("/user/submit", deal.HandleForm)
 	app.GET("/get/page", deal.HandlePage)
+	app.POST("/upload", deal.HandleFile)
 	return app
 }

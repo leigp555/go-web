@@ -42,3 +42,16 @@ func HandlePage(c *gin.Context) {
 	}
 	c.String(200, string(all))
 }
+
+func HandleFile(c *gin.Context) {
+	file, err := c.FormFile("file")
+	if err != nil {
+		c.String(500, "上传图片出错")
+	}
+	// c.JSON(200, gin.H{"message": file.Header.Context})
+	err = c.SaveUploadedFile(file, "img/"+file.Filename)
+	if err != nil {
+		return
+	}
+	c.String(http.StatusOK, file.Filename)
+}
