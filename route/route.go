@@ -41,10 +41,15 @@ func Cors() gin.HandlerFunc {
 func Serve() *gin.Engine {
 	app := gin.Default()
 	app.Use(Cors())
-	app.GET("/api", deal.HandleQuery)
-	app.GET("/:name", deal.HandleParam)
-	app.POST("/user/submit", deal.HandleForm)
-	app.GET("/get/page", deal.HandlePage)
-	app.POST("/upload", deal.HandleFile)
+	v1 := app.Group("/v1")
+	{
+		v1.GET("/api", deal.HandleQuery)
+		v1.GET("/:name", deal.HandleParam)
+		v1.POST("/user/submit", deal.HandleForm)
+		v1.GET("/get/page", deal.HandlePage)
+		v1.POST("/upload", deal.HandleFile)
+		v1.POST("/user/custom", deal.HandleUserTest)
+		v1.GET("/user/parse", deal.HandleParse)
+	}
 	return app
 }
