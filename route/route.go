@@ -49,7 +49,7 @@ func Serve() *gin.Engine {
 		v1.GET("/get/page", deal.HandlePage)
 		v1.POST("/upload", deal.HandleFile)
 		v1.POST("/user/custom", deal.HandleUserTest)
-		v1.GET("/user/parse", deal.HandleParse)
+		v1.POST("/user/parse", deal.HandleParse)
 	}
 	return app
 }

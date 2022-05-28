@@ -176,8 +176,21 @@ func HandleParse(ctx *gin.Context) {
 		return
 	}
 	fmt.Println(claims.UserId)
+	type User struct {
+		gorm.Model
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	var user = User{
+		Username: username,
+		Password: password,
+	}
+	model.Mydb.Table("users").Select("*").Where("username = ?", "lgp").Scan(&user)
+	fmt.Println(user)
 	//fmt.Println(time.Unix(claims.ExpiresAt,0))
 	//b:=(time.Unix(claims.ExpiresAt,0)).Sub(time.Now())/24
 	//fmt.Println(b)
-	ctx.JSON(200, claims.UserId)
+	ctx.JSON(200, user.ID)
 }
